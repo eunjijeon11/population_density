@@ -14,11 +14,26 @@ def main():
         square = (1/population_density[i]) * population[i] * 1000
         area.append(square)
 
-    x = np.linspace(0,15000,1500000)
+    x = symbols('x')
     y = fx(x,population_density, population, area)
-    plot(x,y)
+    fprime = Derivative(y).doit()
+
+    X = np.linspace(0,15000,1500000)
+    Y = fx(X,population_density, population, area)
+
+    a = gradient_descendant(fprime)
+    var = y.subs({x:a})
+
+    scatter(a,var)
+    plot(X,Y)
     show()
 
+def gradient_descendant(fprime, rate = 0.001, epochs = 15000):
+    a = 500
+    x = symbols('x')
+    for i in range(epochs):
+        a = a - rate * fprime.subs({x:a})
+    return a
 
 def average(data):
     sum_x = sum(data)
