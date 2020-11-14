@@ -16,7 +16,7 @@ def main():
     Y = []
     for i in range(20000):
         X.append(i)
-        den_gangwon = density(population[gangwon] - i, area[gangwon])
+        den_gangwon = density(population[gangwon] + i, area[gangwon])
         den_seoul = density(population[seoul] - i, area[seoul])
         population_density[gangwon] = den_gangwon
         population_density[seoul] = den_seoul
