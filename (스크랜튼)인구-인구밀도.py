@@ -1,4 +1,4 @@
-from matplotlib.pylab import plot, show, scatter
+from matplotlib.pylab import plot, show, scatter, subplot, title
 from sympy import symbols, Derivative
 import numpy as np
 
@@ -8,6 +8,9 @@ def main():
     population_density = [16034, 4416, 2773, 2764, 2980, 2813, 1088, 653, 90, 219, 265, 226, 145, 141, 318, 353, 1279]
     gangwon = 8
     seoul = 0
+    subplot(1,2,1)
+    scatter(population, population_density)
+    title("before")
     
     area = []
     for i in range(len(population)):
@@ -21,11 +24,23 @@ def main():
     X = np.linspace(0,15000,1500000)
     Y = fx(X,population_density, population, area)
 
-    a = gradient_descendant(fprime)
+    a = round(gradient_descendant(fprime))
     var = y.subs({x:a})
+    new_den = population_density
+    new_pop = population
+    new_pop[0] -= a
+    new_pop[8] += a
+    new_den[0] = density(new_pop[0], area[0])
+    new_den[8] = density(new_pop[8] + a, area[8])
 
+    """subplot(1,2,1)
     scatter(a,var)
-    plot(X,Y)
+    plot(X,Y)"""
+
+    subplot(1,2,2)
+    title("after")
+    scatter(new_pop, new_den)
+    
     show()
 
 def gradient_descendant(fprime, rate = 0.001, epochs = 15000):
