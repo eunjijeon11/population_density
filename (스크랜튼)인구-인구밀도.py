@@ -1,4 +1,6 @@
 from matplotlib.pylab import plot, show, scatter
+from sympy import symbols, Derivative
+import numpy as np
 
 def main():
     #init
@@ -12,17 +14,9 @@ def main():
         square = (1/population_density[i]) * population[i] * 1000
         area.append(square)
 
-    X = []
-    Y = []
-    for i in range(20000):
-        X.append(i)
-        den_gangwon = density(population[gangwon] + i, area[gangwon])
-        den_seoul = density(population[seoul] - i, area[seoul])
-        population_density[gangwon] = den_gangwon
-        population_density[seoul] = den_seoul
-        Y.append(variance(population_density))
-
-    plot(X,Y)
+    x = np.linspace(0,15000,1500000)
+    y = fx(x,population_density, population, area)
+    plot(x,y)
     show()
 
 
@@ -45,6 +39,13 @@ def variance(data):
 def density(population, area):
     density = population * 1000 / area
     return density
+
+def fx(x, population_density, population, area):
+    den_gangwon = density(population[8] + x, area[8])
+    den_seoul = density(population[0] - x, area[0])
+    population_density[8] = den_gangwon
+    population_density[0] = den_seoul
+    return variance(population_density)
 
 if __name__ == "__main__":
     main()
