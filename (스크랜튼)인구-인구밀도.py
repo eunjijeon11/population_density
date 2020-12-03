@@ -8,9 +8,10 @@ def main():
     population_density = [16034, 4416, 2773, 2764, 2980, 2813, 1088, 653, 90, 219, 265, 226, 145, 141, 318, 353, 1279]
     gangwon = 8
     seoul = 0
-    subplot(1,2,1)
+    print(variance(population_density))
+    """subplot(1,2,1)
     scatter(population, population_density)
-    title("before")
+    title("before")"""
     
     area = []
     for i in range(len(population)):
@@ -26,6 +27,8 @@ def main():
 
     a = round(gradient_descendant(fprime))
     var = y.subs({x:a})
+    print(a, var)
+    
     new_den = population_density
     new_pop = population
     new_pop[0] -= a
@@ -33,9 +36,9 @@ def main():
     new_den[0] = density(new_pop[0], area[0])
     new_den[8] = density(new_pop[8] + a, area[8])
 
-    """subplot(1,2,1)
+    subplot(1,2,1)
     scatter(a,var)
-    plot(X,Y)"""
+    plot(X,Y)
 
     subplot(1,2,2)
     title("after")
